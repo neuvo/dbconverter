@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" strict="true" name="XMLConfigTest"
+               packages="gov.nasa.jpl.ebis.elasticsearch">
+  <Properties>
+      <Property name="filename">ebis.elasticsearch.log</Property>
+      <!--Property name="filename">/Users/sanchez/NetBeansProjects/ebis.elasticsearch.poc/ebis.elasticsearch.log</Property-->
+  </Properties>
+  <Filter type="ThresholdFilter" level="trace"/>
+ 
+  <Appenders>
+    <Appender type="Console" name="STDOUT">
+      <Layout type="PatternLayout" pattern="%m MDC%X%n"/>
+      <Filters>
+        <Filter type="MarkerFilter" marker="FLOW" onMatch="DENY" onMismatch="NEUTRAL"/>
+        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="DENY" onMismatch="ACCEPT"/>
+      </Filters>
+    </Appender>
+    <Appender type="Console" name="FLOW">
+       <!--PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" / -->  
+      <!-- Layout type="PatternLayout" pattern="%C{1}.%M %m %ex%n"/ --><!-- class and line number -->
+      <Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/><!-- class and line number -->
+      <Filters>
+        <Filter type="MarkerFilter" marker="FLOW" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
+      </Filters>
+    </Appender>
+    <Appender type="File" name="File" fileName="${filename}">
+      <Layout type="PatternLayout">
+        <!--Pattern>%d %p %C{1.} [%t] %m%n</Pattern-->
+        <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+       
+      </Layout>
+    </Appender>
+    <Appender type="List" name="List">
+    </Appender>
+  </Appenders>
+ 
+  <Loggers>
+    <Logger name="gov.nasa.jpl.ebis.elasticsearch" level="debug" additivity="false">
+      <Filter type="ThreadContextMapFilter">
+        <KeyValuePair key="test" value="123"/>
+      </Filter>
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+ 
+    <Logger name="gov.nasa.jpl.ebis.elasticsearch" level="debug" additivity="false">
+      <AppenderRef ref="File"/>
+    </Logger>
+ 
+    <Root level="trace">
+      <AppenderRef ref="List"/>
+    </Root>
+  </Loggers>
+ 
+</Configuration>
