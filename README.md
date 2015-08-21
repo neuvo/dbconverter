@@ -122,5 +122,3 @@ Please note all of the required libraries are in the libs folder
 * jtds-1.2.5.jar
 * joda-time-2.4.jar
 
-## Elasticsearch HOWTO
-[Installing Elasticsearch, Marvel Sense and Kibana](elasticsetup.md)
